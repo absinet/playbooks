@@ -1,0 +1,11 @@
+---
+- hosts: LINUX
+  become: true
+  become_user: root
+  tasks:
+    - name: Install httpd Package
+      yum: name=httpd state=latest
+    - name: Copy httpd config file
+      copy: src=/data/httpd.original dest=/etc/httpd/conf/httpd.conf
+    - name: start and enable httpd service
+      service: name=httpd state=restarted enabled=yes 

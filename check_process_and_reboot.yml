@@ -1,0 +1,17 @@
+---
+- hosts: LINUX
+  tasks:
+# task to check process is running
+      - name: Check for Process
+        shell: if ps -eaf | egrep 'apache|http'|grep -v grep > /dev/null ;then echo process_running;else echo process_not_running;fi
+        ignore_errors: true
+        register: app_process_check
+# task to reboot if process not running
+      - name: reboot if process not running
+        #shell: shutdown -r +l 'Rebooting System' 
+        command: shutdown -r
+        async: 0
+        poll: 0
+        when: app_process_check.stdout == 'process_not_running'
+        ignore_errors: true 
+        register: reboot_started

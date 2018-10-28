@@ -1,0 +1,7 @@
+---
+- hosts: LINUX
+  tasks:
+      - name: Create test file
+        file:
+            path: /tmp/yallow
+            state: touch
