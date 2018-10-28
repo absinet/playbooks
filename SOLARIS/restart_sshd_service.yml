@@ -18,3 +18,8 @@
       shell: sed 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config > /tmp/xx;cp /tmp/xx /etc/ssh/sshd_config;rm /tmp/xx
       ignore_errors: true
       when: prl_check.stdout == 'root_login_yes'
+# task to restart SSHD
+    - name: Start SSHD service
+      service:
+        name: ssh
+        state: restarted
