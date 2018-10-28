@@ -1,0 +1,20 @@
+---
+- hosts: SOLARIS
+  become: true
+  become_user: root
+  tasks:
+# task to check if PermitRootLogin (prl) parameter
+    - name: Check if PermitRootLogin is yes
+      shell: if grep 'PermitRootLogin yes' /etc/ssh/sshd_config > /dev/null ;then echo root_login_yes;else echo root_login_no;fi
+      ignore_errors: true
+      register: prl_check
+# Backup sshd_config file if required
+    - name: Backup existing sshd_config file
+      shell: cp -p /etc/ssh/sshd_config /etc/ssh/sshd_config.`date '+%Y%m%d'`
+      ignore_errors: true
+      when: prl_check.stdout == 'root_login_yes'
+# task to change prl to no if required
+    - name: Change prl to no if required
+      shell: sed 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config > /tmp/xx;cp /tmp/xx /etc/ssh/sshd_config;rm /tmp/xx
+      ignore_errors: true
+      when: prl_check.stdout == 'root_login_yes'
