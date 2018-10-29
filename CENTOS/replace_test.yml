@@ -1,0 +1,10 @@
+---
+- hosts: LINUX
+  become: true
+  become_user: root
+  tasks:
+     - replace:
+         path: /home/ibarrie/test
+         regexp: 'this is a test'
+         replace: 'this is not a test'
+         backup: yes
