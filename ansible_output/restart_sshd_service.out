@@ -1,0 +1,31 @@
+[ansible@abscnt01 SOLARIS]$ ansible-playbook restart_sshd_service.yml 
+
+PLAY [SOLARIS] ***********************************************************************************************
+
+TASK [Gathering Facts] ***************************************************************************************
+ok: [abssol02]
+ok: [abssol01]
+
+TASK [Check if PermitRootLogin is yes] ***********************************************************************
+changed: [abssol02]
+changed: [abssol01]
+
+TASK [Backup existing sshd_config file] **********************************************************************
+changed: [abssol01]
+changed: [abssol02]
+
+TASK [Change prl to no if required] **************************************************************************
+ [WARNING]: Consider using template or lineinfile module rather than running sed
+
+changed: [abssol02]
+changed: [abssol01]
+
+TASK [Start SSHD service] ************************************************************************************
+changed: [abssol02]
+changed: [abssol01]
+
+PLAY RECAP ***************************************************************************************************
+abssol01                   : ok=5    changed=4    unreachable=0    failed=0   
+abssol02                   : ok=5    changed=4    unreachable=0    failed=0   
+
+[ansible@abscnt01 SOLARIS]$
