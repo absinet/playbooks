@@ -3,11 +3,6 @@
   become: true
   become_user: root
   tasks:
-# task to check if PermitRootLogin (prl) parameter
-    - name: Check if PermitRootLogin is yes
-      shell: if grep 'PermitRootLogin yes' /etc/ssh/sshd_config > /dev/null ;then echo root_login_yes;else echo root_login_no;fi
-      ignore_errors: true
-      register: prl_check
 # task to backup sshd_config and replace prl from yes to no if required
     - replace:
         path: /etc/ssh/sshd_config
