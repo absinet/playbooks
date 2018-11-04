@@ -1,0 +1,18 @@
+---
+- hosts: SOLARIS
+  become: true
+  become_user: root
+  tasks:
+    - replace:
+         path: /root/sshd_config
+         regexp: 'PermitRootLogin yes'
+         replace: 'PermitRootLogin no'
+         backup: yes
+    - replace:
+         path: /root/sshd_config
+         regexp: 'X11Forwarding yes'
+         replace: 'X11Forwarding no'
+         backup: yes
+#    - service:
+#         name: ssh
+#         state: restarted

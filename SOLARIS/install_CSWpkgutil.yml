@@ -1,0 +1,10 @@
+---
+  - hosts: SOLARIS
+    become: true
+    become_user: root
+    tasks:
+#install OpenCSW package
+    - svr4pkg:
+        name: CSWpkgutil
+        src: 'http://get.opencsw.org/now'
+        state: present
