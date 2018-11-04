@@ -1,0 +1,9 @@
+---
+  - hosts: SOLARIS
+    become: true
+    become_user: root
+    tasks:
+#remove OpenCSW package
+    - svr4pkg:
+        name: CSWpkgutil
+        state: absent
