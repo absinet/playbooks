@@ -4,7 +4,8 @@
     become_user: root
     tasks:
 #install OpenCSW package
-    - svr4pkg:
+    - name: task to install CSWpkgutil from http://get.opencsw.org/now
+      svr4pkg:
         name: CSWpkgutil
         src: 'http://get.opencsw.org/now'
         state: present

@@ -4,6 +4,7 @@
     become_user: root
     tasks:
 #remove OpenCSW package
-    - svr4pkg:
+    - name: task to remove CSWpkgutil package
+      svr4pkg:
         name: CSWpkgutil
         state: absent
