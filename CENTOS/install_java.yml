@@ -1,0 +1,12 @@
+---
+- hosts: LINUX
+  become: true
+  become_user: root
+  tasks:
+    - name: Install latest java Package
+      yum: name=java-1.8.0 state=latest
+    - name: check java version
+      shell: java -version
+      register: java_check
+    - debug: 
+        var: java_check
