@@ -8,4 +8,5 @@
             copy:
                     src: /etc/shadow
                     dest: /tmp/shadow.copy
+                    mode: 0000
                     remote_src: true
