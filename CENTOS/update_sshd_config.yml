@@ -1,0 +1,14 @@
+# Playbook to replace PermitRootLogin value from yes to no
+#
+---
+- name: update_sshd_config.yml
+  hosts: test
+  become: true
+
+  tasks:
+          - name: replace PermitRootLogin from yes to no
+            ansible.builtin.replace:
+                    path: /etc/ssh/sshd_config
+                    regexp: '(\s+)PermitRootLogin yes(\s+.*)?$'
+                    replace: '\1PermitRootLogin no\2'
+                    backup: yes
