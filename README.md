@@ -1,6 +1,8 @@
 # playbooks
 Ansible Playbooks
-Just a collection of playbooks for testing on CentOS and Solaris
+Just a collection of playbooks for testing on CentOS and Solaris.
+
+On CentOS, all playbooks are executed remotely using the ansible account, not root
 
 to run syntax check:
 
