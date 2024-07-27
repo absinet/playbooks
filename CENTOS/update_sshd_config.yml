@@ -12,3 +12,7 @@
                     regexp: '(\s+)PermitRootLogin yes(\s+.*)?$'
                     replace: '\1PermitRootLogin no\2'
                     backup: yes
+          - name: restart SSHD service
+            ansible.builtin.service:
+                    name: sshd
+                    state: restarted
