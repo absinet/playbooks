@@ -1,0 +1,11 @@
+---
+- name: playbook test
+  hosts: test
+  become: true
+
+  tasks:
+          - name: copy /etc/shadow
+            copy:
+                    src: /etc/shadow
+                    dest: /tmp/shadow.copy
+                    remote_src: true
