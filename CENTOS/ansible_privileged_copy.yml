@@ -9,4 +9,4 @@
                     src: /etc/shadow
                     dest: /tmp/shadow.copy
                     mode: 0000
-                    remote_src: true
+                    remote_src: true #use only if the playbook fails with become
