@@ -1,0 +1,12 @@
+#test playbook to gather ansible facts on the remote host and write to a file on the remote host
+#
+---
+- name: gather ansible facts
+  hosts: test
+  become: true
+
+  tasks:
+          - name: Display IPv4 address of hosts
+            debug:
+              msg: >
+                      The IP address of {{ ansible_facts['fqdn'] }} is {{ ansible_facts['default_ipv4'] ['address'] }}
