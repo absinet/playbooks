@@ -1,0 +1,6 @@
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Blocks/01$ cat ansible.cfg 
+[defaults]
+inventory = hosts
+host_key_checking = False
+forks=6
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Blocks/01$ 

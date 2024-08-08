@@ -1,0 +1,74 @@
+Ansible - installing and setting up nginx
+
+.
+├── ansible.cfg
+├── files
+│   └── playbook_stacker.zip
+├── group_vars
+│   ├── centos
+│   └── ubuntu
+├── host_vars
+│   ├── centos1
+│   └── ubuntu-c
+├── hosts
+├── nginx_playbook.yaml
+├── procps_playbook.yaml
+├── templates
+│   ├── index.html-ansible_managed.j2
+│   ├── index.html-base.j2
+│   ├── index.html-easter_egg.j2
+│   └── index.html-logos.j2
+└── vars
+    └── logos.yaml
+
+5 directories, 14 files
+
+Ansible vars, host and group 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat hosts
+[control]
+ubuntu-c
+
+[centos]
+centos[1:3]
+
+[ubuntu]
+ubuntu[1:3]
+
+[linux:children]
+centos
+ubuntu
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat ansible.cfg 
+[defaults]
+inventory = hosts
+host_key_checking = False
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat group_vars/centos 
+---
+ansible_user: root
+nginx_root_location: /usr/share/nginx/html
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat group_vars/ubuntu 
+---
+ansible_become: true
+ansible_become_pass: password
+nginx_root_location: /var/www/html
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat host_vars/centos1 
+---
+ansible_port: 2222
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat host_vars/ubuntu-c 
+---
+ansible_connection: local
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 

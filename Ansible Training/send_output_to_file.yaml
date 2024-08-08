@@ -1,0 +1,16 @@
+---
+- name: gather ansible facts
+  hosts: test
+  become: true
+
+  tasks:
+          - name: Print all available facts
+            ansible.builtin.debug:
+                    var: ansible_facts
+            register: server_output
+          - name: collect output
+            ansible.builtin.copy:
+                    content: "{{server_output}}"
+                    dest: /tmp/out.log
+            #delegate_to: localhost # This requires addiotnal setup (SSH keys and port forwarding) to work
+...

@@ -1,0 +1,28 @@
+.
+├── ansible.cfg
+├── captured_variables
+│   ├── centos1
+│   ├── centos2
+│   ├── centos3
+│   ├── ubuntu-c
+│   ├── ubuntu1
+│   ├── ubuntu2
+│   └── ubuntu3
+├── dump_vars_playbook.yaml
+├── group_vars
+│   ├── centos
+│   └── ubuntu
+├── host_vars
+│   ├── centos1
+│   └── ubuntu-c
+├── hosts
+└── templates
+    └── dump_variables
+
+4 directories, 15 files
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Magic Variables/01/templates$ cat dump_variables 
+PLAYBOOK VARS (Ansible vars):
+
+{{ vars | to_nice_yaml }}
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Magic Variables/01/templates$ 

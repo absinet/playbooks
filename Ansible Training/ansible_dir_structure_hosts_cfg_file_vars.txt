@@ -1,0 +1,62 @@
+playbook diectory structure
+
+├── ansible.cfg
+├── group_vars
+│   ├── centos
+│   └── ubuntu
+├── host_vars
+│   ├── centos1
+│   └── ubuntu-c
+├── hosts
+└── user_directories.yaml
+
+2 directories, 7 files
+
+Ansible vars, host and group 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat hosts
+[control]
+ubuntu-c
+
+[centos]
+centos[1:3]
+
+[ubuntu]
+ubuntu[1:3]
+
+[linux:children]
+centos
+ubuntu
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat ansible.cfg 
+[defaults]
+inventory = hosts
+host_key_checking = False
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat group_vars/centos 
+---
+ansible_user: root
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat group_vars/ubuntu 
+---
+ansible_become: true
+ansible_become_pass: password
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat host_vars/centos1 
+---
+ansible_port: 2222
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ cat host_vars/ubuntu-c 
+---
+ansible_connection: local
+...
+ansible@ubuntu-c:~/diveintoansible/Ansible Playbooks, Deep Dive/Looping/13$ 
+

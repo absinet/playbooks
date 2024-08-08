@@ -1,0 +1,20 @@
+Windows:
+To start Docker for Ansible training:
+1. go to "C:\Users\ib199\repo\diveintoansible-lab\ansible_home"
+2. type  "docker compose up"
+3. you should see:
+
+PS C:\Users\ib199\repo\diveintoansible-lab\ansible_home> docker compose up
+[+] Running 9/0
+ ✔ Container centos3   Created                                                                                     0.0s
+ ✔ Container centos2   Created                                                                                     0.0s
+ ✔ Container ubuntu-c  Created                                                                                     0.0s
+ ✔ Container docker    Created                                                                                     0.0s
+ ✔ Container centos1   Created                                                                                     0.0s
+ ✔ Container ubuntu3   Created                                                                                     0.0s
+ ✔ Container ubuntu1   Created                                                                                     0.0s
+ ✔ Container ubuntu2   Created                                                                                     0.0s
+ ✔ Container portal    Created                                                                                     0.0s
+Attaching to centos1, centos2, centos3, docker, portal, ubuntu-c, ubuntu1, ubuntu2, ubuntu3
+
+4. Open a browser and type: http://localhost:1000, to access the terminal to all UNIX hosts
