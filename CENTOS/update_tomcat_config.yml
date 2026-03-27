@@ -1,0 +1,19 @@
+---
+- name: Update Tomcat configuration and restart service
+  hosts: test
+  become: true
+
+  tasks:
+    - name: Copy updated Tomcat configuration file
+      ansible.builtin.copy:
+        src: files/server.xml
+        dest: /opt/tomcat/conf/server.xml
+        owner: tomcat
+        group: tomcat
+        mode: '0644'
+        backup: yes
+
+    - name: Restart Tomcat service
+      ansible.builtin.service:
+        name: tomcat
+        state: restarted

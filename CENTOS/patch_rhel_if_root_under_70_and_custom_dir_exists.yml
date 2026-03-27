@@ -1,0 +1,49 @@
+---
+- name: Patch RHEL when root FS is <= 70% and /etc/abs/custom exists
+  hosts: all
+  become: true
+  gather_facts: yes
+
+  tasks:
+    - name: Ensure /etc/abs/custom exists
+      ansible.builtin.stat:
+        path: /etc/abs/custom
+      register: custom_dir
+
+    - name: Collect root filesystem usage percentage
+      ansible.builtin.shell: "df -P / | tail -1 | awk '{print $5}' | tr -d '%'"
+      register: root_pct
+      changed_when: false
+
+    - name: Convert root usage to integer
+      ansible.builtin.set_fact:
+        root_usage_pct: "{{ root_pct.stdout | int }}"
+
+    - name: Report root usage and directory absence
+      ansible.builtin.debug:
+        msg: "root filesystem usage is {{ root_usage_pct }}%, /etc/abs/custom exists={{ custom_dir.stat.exists }}"
+
+    - name: Patch with yum for RHEL 6/7
+      ansible.builtin.yum:
+        name: '*'
+        state: latest
+      when:
+        - custom_dir.stat.exists
+        - root_usage_pct <= 70
+        - ansible_facts['distribution_major_version'] in ['6', '7']
+
+    - name: Patch with dnf for RHEL 8/9
+      ansible.builtin.dnf:
+        name: '*'
+        state: latest
+      when:
+        - custom_dir.stat.exists
+        - root_usage_pct <= 70
+        - ansible_facts['distribution_major_version'] in ['8', '9']
+
+    - name: Skip patching when conditions are not met
+      ansible.builtin.debug:
+        msg: >-
+          Skipping package update because
+          custom_dir.exists={{ custom_dir.stat.exists }} or root_usage_pct={{ root_usage_pct }} > 70
+      when: custom_dir.stat.exists == false or root_usage_pct > 70
